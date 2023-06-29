@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chuc_vu_DAO {
+//    Thao tác với SLite
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
+
+//    Xử dụng tham chiếu đến tài nguyên
     private Context context;
 
     public  Chuc_vu_DAO(Context context){

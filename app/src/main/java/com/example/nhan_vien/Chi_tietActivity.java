@@ -26,6 +26,8 @@ public class Chi_tietActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter , arrayAdapter2;
     Nhan_vien_DAO nhan_vien_dao;
 
+    LinearLayout list_search;
+
     Phong_ban_DAO phong_ban_dao;
     Chuc_vu_DAO chuc_vu_dao;
     List<String> list1 =new ArrayList<>(), list = new ArrayList<>(), dataList = new ArrayList<>(), dataList1 = new ArrayList<>();
@@ -48,6 +50,8 @@ public class Chi_tietActivity extends AppCompatActivity {
         btn_search = findViewById(R.id.btn_search);
         btn_all = findViewById(R.id.btn_all);
         list_nv = findViewById(R.id.list_pb);
+        listpb1 = findViewById(R.id.list_pb1);
+        list_search = findViewById(R.id.list_search);
         Spinner nhap_gioi_tinh = findViewById(R.id.nhap_gioi_tinh);
 
 // Tạo danh sách dữ liệu cho giới tính
@@ -113,25 +117,41 @@ public class Chi_tietActivity extends AppCompatActivity {
                 nhap_phong_ban.setSelection(phong_ban1);
                 int chuc_vu1 = dataList1.indexOf(chuc_vu);
                 nhap_chuc_vu.setSelection(chuc_vu1);
-//                Nhan_vien selectedNhanVien = (Nhan_vien) list_nv.getItemAtPosition(position);
-//
-//                // Lấy thông tin từ dòng được chọn
-//                String ten = selectedNhanVien.getTen();
-//                String ngay_sinh =selectedNhanVien.getNgay_sinh();
-//                String chuc_vu = selectedNhanVien.getChuc_vu();
-//                String ma_nhan_vien =selectedNhanVien.getMa_nhan_vien();
-//                String gioi_tinh =selectedNhanVien.getGioi_tinh();
-//                String phong_ban =selectedNhanVien.getPhong_ban();
-//
-//
-//                // Hiển thị thông tin lên EditText
-//                nhap_ten.setText(ten);
-//                nhap_chuc_vu.setText(chuc_vu);
-//                nhap_phong_ban.setText(phong_ban);
-//                nhap_ngay_sinh.setText(ngay_sinh);
-//                nhap_id.setText(ma_nhan_vien);
-//                int spinnervalue  = genderList.indexOf(gioi_tinh);
-//                nhap_gioi_tinh.setSelection(spinnervalue);
+
+            }
+
+        });
+
+        listpb1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LinearLayout list_detail = findViewById(R.id.list_detail);
+                list_detail.setVisibility(View.VISIBLE);
+                // Lấy dòng được chọn từ ListView
+
+
+                String selectedItem = (String) listpb1.getItemAtPosition(position);
+
+                // Phân tích chuỗi thành các thành phần dữ liệu
+                String[] itemComponents = selectedItem.split("-");
+
+                // Lấy dữ liệu từ các thành phần và hiển thị lên EditText
+                String ma_nv = itemComponents[0];
+                String ten = itemComponents[1];
+                String gioi_tinh = itemComponents[2];
+                String ngay_sinh = itemComponents[3];
+                String chuc_vu = itemComponents[4];
+                String phong_ban = itemComponents[5];
+
+                nhap_ten.setText(ten);
+                nhap_id.setText(ma_nv);
+                nhap_ngay_sinh.setText(ngay_sinh);
+                int gioi_tinh1 = genderList.indexOf(gioi_tinh);
+                nhap_gioi_tinh.setSelection(gioi_tinh1);
+                int phong_ban1 = dataList.indexOf(phong_ban);
+                nhap_phong_ban.setSelection(phong_ban1);
+                int chuc_vu1 = dataList1.indexOf(chuc_vu);
+                nhap_chuc_vu.setSelection(chuc_vu1);
+
             }
 
         });
@@ -140,21 +160,21 @@ public class Chi_tietActivity extends AppCompatActivity {
             public void onClick(View v) {
                 list_nv.setVisibility(View.GONE);
 
-                LinearLayout listsearch = findViewById(R.id.list_search);
 
-                listsearch.setVisibility(View.VISIBLE);
+
+                list_search.setVisibility(View.VISIBLE);
 
                 EditText btn_tim_kiem = findViewById(R.id.nhap_tim_kiem);
 
                 String btn_tim = btn_tim_kiem.getText().toString();
 
-                listpb1 = findViewById(R.id.list_pb1);
+//                listpb1 = findViewById(R.id.list_pb1);
                 list1.clear();
 
                 nhan_vien_dao = new Nhan_vien_DAO(context);
                 list1 = nhan_vien_dao.getSearchNhan_vienToString(btn_tim);
                 arrayAdapter2 = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, list1);
-                arrayAdapter2.notifyDataSetChanged();
+
                 listpb1.setAdapter(arrayAdapter2);
             }
         });
@@ -164,7 +184,7 @@ public class Chi_tietActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 list_nv.setVisibility(View.VISIBLE);
-                listpb1.setVisibility(View.GONE);
+                list_search.setVisibility(View.GONE);
 
                 list.clear();
                 nhan_vien_dao = new Nhan_vien_DAO(context);
