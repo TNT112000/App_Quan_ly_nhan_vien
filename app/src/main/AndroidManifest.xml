@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Nhan_vien"
         tools:targetApi="31">
         <activity
+            android:name=".Chi_tietActivity"
+            android:exported="false" />
+        <activity
             android:name=".Chuc_vuActivity"
             android:exported="false" />
         <activity

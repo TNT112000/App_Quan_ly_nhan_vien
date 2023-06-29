@@ -30,6 +30,14 @@ public class OptionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button chi_tiet =findViewById(R.id.btn_chi_tiet);
+        chi_tiet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OptionActivity.this, Chi_tietActivity.class);
+                startActivity(intent);
+            }
+        });
         Button nextButton = findViewById(R.id.btn_quan_ly);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override

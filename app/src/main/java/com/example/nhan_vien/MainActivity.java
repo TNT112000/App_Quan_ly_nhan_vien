@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         nhap_ten = findViewById(R.id.nhap_ten);
         nhap_id = findViewById(R.id.nhap_id);
         nhap_chuc_vu = findViewById(R.id.nhap_chuc_vu);
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         btn_them = findViewById(R.id.btn_them);
         btn_xoa=findViewById(R.id.btn_xoa);
         btn_sua=findViewById(R.id.btn_sua);
-
         list_nv=findViewById(R.id.list_pb);
         Spinner nhap_gioi_tinh = findViewById(R.id.nhap_gioi_tinh);
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         dataList1 = chuc_vu_dao.getAllChuc_vusToString();
         ArrayAdapter<String> listchuc_vu = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dataList1);
         listchuc_vu.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        nhap_chuc_vu.setAdapter(listphong_ban);
+        nhap_chuc_vu.setAdapter(listchuc_vu);
 
 // Liên kết ArrayAdapter với Spinner
         nhap_gioi_tinh.setAdapter(adapter);
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         list_nv.setAdapter(arrayAdapter);
 
         list_nv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Lấy dòng được chọn từ ListView
 
@@ -121,6 +122,81 @@ public class MainActivity extends AppCompatActivity {
 //                nhap_gioi_tinh.setSelection(spinnervalue);
             }
 
+        });
+        btn_xoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String delete = nhap_id.getText().toString();
+                int kq =nhan_vien_dao.deleteNhan_vien(delete);
+                if (kq == -1) {
+                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    list.clear();
+                    nhan_vien_dao = new Nhan_vien_DAO(context);
+                    list = nhan_vien_dao.getAllNhan_vienToString();
+                    arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,list);
+                    list_nv.setAdapter(arrayAdapter);
+                    nhap_ten.setText("");
+                    nhap_chuc_vu.setSelection(0);
+                    nhap_gioi_tinh.setSelection(0);
+                    nhap_ngay_sinh.setText("");
+                    nhap_id.setText("");
+                    nhap_phong_ban.setSelection(0);
+
+                }
+
+            }
+        });
+        btn_sua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Nhan_vien s= new Nhan_vien();
+                String ma_nhan_vien= nhap_id.getText().toString();
+                s.setMa_nhan_vien(ma_nhan_vien);
+                String nhap_chuc_vu1 = nhap_chuc_vu.getSelectedItem().toString();
+                String nhap_ten1 = nhap_ten.getText().toString();
+                s.setTen(nhap_ten1);
+                String phong_ban1 = nhap_phong_ban.getSelectedItem().toString();
+                s.setPhong_ban(phong_ban1);
+                s.setChuc_vu(nhap_chuc_vu1);
+                String nhap_ngay_sinh1 = nhap_ngay_sinh.getText().toString();
+                s.setNgay_sinh(nhap_ngay_sinh1);
+                String nhap_gioi_tinh1 = nhap_gioi_tinh.getSelectedItem().toString();
+                s.setGioi_tinh(nhap_gioi_tinh1);
+
+//              Kiểm tra xem edittext có rỗng hay không
+
+                if(!(nhap_gioi_tinh1 == "Chọn")  &&  !(nhap_chuc_vu1 == "Chọn")  && !TextUtils.isEmpty(nhap_ten1)
+                        && !TextUtils.isEmpty(ma_nhan_vien) && !TextUtils.isEmpty(nhap_ngay_sinh1) && !(phong_ban1 == "Chọn"))
+                {
+                    int kq = nhan_vien_dao.updateNhan_vien(s);
+                    if (kq == -1) {
+                        Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                        list.clear();
+                        nhan_vien_dao = new Nhan_vien_DAO(context);
+                        list = nhan_vien_dao.getAllNhan_vienToString();
+                        arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,list);
+                        list_nv.setAdapter(arrayAdapter);
+                        nhap_ten.setText("");
+                        nhap_chuc_vu.setSelection(0);
+                        nhap_gioi_tinh.setSelection(0);
+                        nhap_ngay_sinh.setText("");
+                        nhap_id.setText("");
+                        nhap_phong_ban.setSelection(0);
+
+                    }
+                }
+
+                else {
+                    Toast.makeText(context, "Hãy nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
         btn_them.setOnClickListener(new View.OnClickListener() {

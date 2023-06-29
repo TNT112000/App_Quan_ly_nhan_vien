@@ -34,7 +34,7 @@ public class Chuc_vuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chuc_vu);
         nhap_chuc_vu = findViewById(R.id.nhap_chuc_vu);
-        nhap_ma = findViewById(R.id.nhap_ma);
+        nhap_ma = findViewById(R.id.nhap_id);
         btn_them = findViewById(R.id.btn_them);
         btn_xoa = findViewById(R.id.btn_xoa);
         btn_sua = findViewById(R.id.btn_sua);
