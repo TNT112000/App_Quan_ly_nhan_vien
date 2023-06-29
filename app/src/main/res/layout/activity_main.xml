@@ -53,29 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_sua"
-        android:layout_width="107dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="340dp"
-        android:layout_weight="0"
-        android:text="Sửa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_xoa"
-        android:layout_width="107dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="340dp"
-        android:layout_weight="0"
-        android:text="Xóa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.944"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/phong_ban"
         android:layout_width="wrap_content"
@@ -162,13 +139,13 @@
 
     <Button
         android:id="@+id/btn_them"
-        android:layout_width="107dp"
-        android:layout_height="56dp"
+        android:layout_width="234dp"
+        android:layout_height="54dp"
         android:layout_marginTop="340dp"
         android:layout_weight="0"
         android:text="Thêm"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
